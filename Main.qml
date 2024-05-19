@@ -1,9 +1,8 @@
-import QtQuick 2.5
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 1.4 as Qqc
-import QtQuick.Controls.Styles 1.4
-import QtQuick.Window 2.2
-import QtMultimedia 5.5
+import QtQuick 2.2
+import QtQuick.Layouts 1.15
+import QtQuick.Window 2.15
+import QtQuick.Controls 2.15 as Qqc
+import QtMultimedia 5.15
 import SddmComponents 2.0
 
 Rectangle {
@@ -14,10 +13,10 @@ Rectangle {
 	Connections {
 		target: sddm
 
-		onLoginSucceeded: {
+		function onLoginSucceeded() {
 		}
 
-		onLoginFailed: {
+		function onLoginFailed() {
 			denied.play()
 		}
 	}
@@ -55,14 +54,12 @@ Rectangle {
 			id: username
 			Layout.alignment: Qt.AlignCenter
 			text: userModel.lastUser
-			style: TextFieldStyle {
-				textColor: "#c1b492"
-				background: Rectangle {
+			color: "#c1b492"
+			background: Rectangle {
 					color: "#000"
 					implicitWidth: 200
 					border.color: "#d2738a"
 				}
-			}
 			KeyNavigation.backtab: shutdownBtn; KeyNavigation.tab: password
 			Keys.onPressed: {
 				if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
@@ -81,14 +78,12 @@ Rectangle {
 			id: password
 			echoMode: TextInput.Password
 			Layout.alignment: Qt.AlignCenter
-			style: TextFieldStyle {
-				textColor: "#c1b492"
-				background: Rectangle {
+			color: "#c1b492"
+			background: Rectangle {
 					color: "#000"
 					implicitWidth: 200
 					border.color: "#d2738a"
 				}
-			}
 			KeyNavigation.backtab: username; KeyNavigation.tab: session
 			Keys.onPressed: {
 				if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
@@ -178,9 +173,10 @@ Rectangle {
 		focusColor: "#d2738a"
 		hoverColor: "#d2738a"
 		textColor: "#c1b492"
-		arrowIcon: "angle-down.png"
+		arrowIcon: "/usr/share/sddm/themes/sddm-lain-wired-theme/angle-down.png"
 		KeyNavigation.backtab: password; KeyNavigation.tab: rebootBtn;
 	}
+/*
 	Audio {
 		id: bgMusic
 		source: "bg_music.wav"
@@ -196,7 +192,7 @@ Rectangle {
 		id: denied
 		source: "denied.wav"
 	}
-
+*/
 	Component.onCompleted: {
 		if (username.text == "") {
 			username.focus = true
